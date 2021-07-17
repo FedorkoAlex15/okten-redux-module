@@ -14,13 +14,13 @@ const [description, setDescription] = useState('');
 
 
     onSubmit(title, description)
-
+      console.log(`Title : ${title}, Description: ${description}`)
   }
 
   return(
       <form onSubmit={handleSubmit}>
         <input type="text"  value={title}  onChange={({target: {value}}) => setTitle(value)}   placeholder={'todo title'}/>
-        <input type="text" value={description} onChange={({target: {value}}) => CreateTodoForm(value) }  placeholder={'todo description'}/>
+        <input type="text" value={description} onChange={({target: {value}}) => setDescription(value) }  placeholder={'todo description'}/>
         <button type={'submit'}> create todo</button>
       </form>
   )
@@ -38,7 +38,7 @@ function App() {
   const fetchTodos = async () => {
     const resp = await fetch('http://localhost:8888/get-todos')
     const data = await  resp.json();
-    console.log(data, 'data')
+
   }
 
 
@@ -52,6 +52,10 @@ const onTodoCreate = async (title, description) => {
         method: 'POST',
         body: JSON.stringify({title, description})
     })
+
+    const data = await resp.json();
+
+    console.log(data, 'onTodoCreate')
 }
 
   return (
