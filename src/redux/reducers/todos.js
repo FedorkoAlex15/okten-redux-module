@@ -1,12 +1,12 @@
 const initialState = {
-    value: []
+    todos: []
 }
 
 export const todosReducer = (state = initialState, action) => {
     switch (action.type){
-        // case 'INC' : {
-        //     return {...state, value: this.state.value + 1}
-        // }
+        case 'ADD_TODOS' : {
+            return {...state, todos: action.payload}
+        }
 
         default:
             return state

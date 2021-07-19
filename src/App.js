@@ -1,7 +1,10 @@
+import React, {Fragment} from "react";
 import logo from './logo.svg';
 import './App.css';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
+
+import {todosReducer} from "./redux/reducers/todos";
 //Create Form component
 const CreateTodoForm = ({onSubmit}) => {
 
@@ -9,7 +12,7 @@ const [title, setTitle] = useState('');
 const [description, setDescription] = useState('');
 
 
-  const handleSubmit =  (e) => {
+  const handleSubmit = async (e) => {
      e.preventDefault()
 
 
@@ -27,17 +30,35 @@ const [description, setDescription] = useState('');
   
 }
 
-// const Todos = () => {
-//
-// }
+const Todos = ({todos}) => {
+
+
+    return(
+        <div>
+            {todos.map(todo => {
+                return <Fragment key={todo.id}>
+                    <div>{todo.title}</div>
+                    <div>{todo.description}</div>
+                    <div>Created At: {new Date(todo.createdAt)}</div>
+
+
+                </Fragment>
+            })}
+        </div>
+    )
+}
 
 
 function App() {
-  const store = useSelector(store => store)
+  const { todos } = useSelector(store => store.todosReducer)
+    const dispatch = useDispatch()
+
+    console.log(todos, 'todos')
 
   const fetchTodos = async () => {
     const resp = await fetch('http://localhost:8888/get-todos')
     const data = await  resp.json();
+
 
   }
 
@@ -50,7 +71,10 @@ function App() {
 const onTodoCreate = async (title, description) => {
     const resp = await fetch('http://localhost:8888/create-todo', {
         method: 'POST',
-        body: JSON.stringify({title, description})
+        body: JSON.stringify({title, description}),
+        headers: {
+            'Content-Type' : 'application/json'
+        }
     })
 
     const data = await resp.json();
@@ -61,6 +85,7 @@ const onTodoCreate = async (title, description) => {
   return (
     <div className="App">
         <CreateTodoForm onSubmit={onTodoCreate}/>
+        <Todos todos={todos}/>
     </div>
   );
 }
