@@ -8,6 +8,15 @@ export const todosReducer = (state = initialState, action) => {
             return {...state, todos: action.payload}
         }
 
+        case 'NEW_ADD_TODOS' : {
+            return {...state, todos: [...state.todos, action.payload]}
+        }
+
+        case 'DELETE_TODOS': {
+            return {...state, todos: [...state.todos, action.payload]}
+
+        }
+
         default:
             return state
     }
