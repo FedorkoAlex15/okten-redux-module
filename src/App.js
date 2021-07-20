@@ -6,7 +6,7 @@ import {useEffect, useState} from "react";
 
 import {todosReducer} from "./redux/reducers/todos";
 import CreateTodoForm from "./CreateTodoForm/CreateTodoForm";
-import Todos from "./Todoes";
+import Todos from "./Todos/Todoes";
 //Create Form component
 
 
@@ -22,7 +22,7 @@ function App() {
     const resp = await fetch('http://localhost:8888/get-todos')
     const data = await  resp.json();
 
-    dispatch({type: 'ADD_TODOS', payload: data})
+     dispatch({type: 'ADD_TODOS', payload: data})
 
   }
 
@@ -47,6 +47,7 @@ const onTodoCreate = async (title, description) => {
 }
 
 console.log(todos)
+
 
   return (
     <div>

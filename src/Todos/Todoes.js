@@ -4,8 +4,14 @@ import {useDispatch} from "react-redux";
 export default function Todos  ({todos}) {
     const dispatch  = useDispatch()
 
+    const handleEdit = async (id) => {
+        console.log(id)
+
+    }
+
+
 const  handleDelete = async (id) => {
-console.log(id)
+
 
 
 
@@ -35,6 +41,7 @@ console.log(id)
                 return <Fragment key={todo.id}>
                     <div>{todo.title}</div>
                     <div>{todo.description}</div>
+                    <button onClick={() => handleEdit(todo.id)}>Edit</button>
                     <button onClick={() => handleDelete(todo.id)}>Delete</button>
                     <hr/>
 

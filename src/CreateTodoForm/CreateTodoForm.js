@@ -1,5 +1,5 @@
 import React, {useState} from "react";
- export default function CreateTodoForm  ({onTodoCreate}) {
+ export default function CreateTodoForm  ({onTodoCreate, onTodoEdit}) {
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -13,6 +13,8 @@ import React, {useState} from "react";
 
     }
 
+
+
     return(
         <form onSubmit={handleSubmit}>
             <input type="text"  value={title}  onChange={({target: {value}}) => setTitle(value)}   placeholder={'todo title'}/>
@@ -22,3 +24,4 @@ import React, {useState} from "react";
     )
 
 }
+
