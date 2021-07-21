@@ -27,6 +27,8 @@ function App() {
   }
 
 
+  console.log(todos)
+
   useEffect(() => {
     fetchTodos();
   }, [])
@@ -46,13 +48,49 @@ const onTodoCreate = async (title, description) => {
     console.log(data, 'onTodoCreate')
 }
 
+const onChangeTodoStatus = async(completed, id) => {
+  console.log(completed)
+
+    const resp = await fetch(`http://localhost:8888/update-todo/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({completed: !completed}),
+        headers: {
+            'Content-Type' : 'application/json'
+        }
+    })
+
+    const data = await resp.json();
+        dispatch({type: 'UPDATE_TODOS_STATUS', payload: data})
+
+ }
+
+
+
+  const onTitleEdit = async(title, id) => {
+      console.log(title)
+      console.log(id)
+      const resp = await fetch(`http://localhost:8888/update-todo/${id}`, {
+          method: 'PATCH',
+          body: JSON.stringify(title),
+          headers: {
+              'Content-Type' : 'application/json'
+          }
+
+      })
+        const data = await resp.json()
+
+
+      // console.log(`data ${JSON.stringify(data)}`)
+  }
+
+
 console.log(todos)
 
 
   return (
     <div>
         <CreateTodoForm onTodoCreate={onTodoCreate}/>
-        <Todos todos={todos}/>
+        <Todos todos={todos} onChangeTodoStatus={onChangeTodoStatus} onTitleEdit={onTitleEdit } />
     </div>
   );
 }

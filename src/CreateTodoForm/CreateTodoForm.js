@@ -1,5 +1,5 @@
 import React, {useState} from "react";
- export default function CreateTodoForm  ({onTodoCreate, onTodoEdit}) {
+ export default function CreateTodoForm  ({onTodoCreate}) {
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -12,6 +12,7 @@ import React, {useState} from "react";
         onTodoCreate(title, description)
 
     }
+
 
 
 

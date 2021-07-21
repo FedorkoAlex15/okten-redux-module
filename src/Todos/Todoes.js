@@ -1,7 +1,7 @@
 import React, {Fragment} from "react";
 import {useDispatch} from "react-redux";
 
-export default function Todos  ({todos}) {
+export default function Todos  ({todos, onChangeTodoStatus, onTitleEdit }) {
     const dispatch  = useDispatch()
 
     const handleEdit = async (id) => {
@@ -35,14 +35,19 @@ const  handleDelete = async (id) => {
 
 }
 
+
+
+
     return (
         <div>
             {todos.map(todo => {
                 return <Fragment key={todo.id}>
                     <div>{todo.title}</div>
                     <div>{todo.description}</div>
-                    <button onClick={() => handleEdit(todo.id)}>Edit</button>
+                    <div>{JSON.stringify(todo.completed)}</div>
+                    <button onClick={() => onChangeTodoStatus(todo.completed, todo.id )}>Completed</button>
                     <button onClick={() => handleDelete(todo.id)}>Delete</button>
+                    <button onClick={() => onTitleEdit(todo.title, todo.id)}>Edit Title</button>
                     <hr/>
 
 
