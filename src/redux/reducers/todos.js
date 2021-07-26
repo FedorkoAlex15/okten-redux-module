@@ -25,8 +25,12 @@ export const todosReducer = (state = initialState, action) => {
             return {...state}
         }
 
-        case 'EDIT_TITLE': {
-
+        case 'EDIT': {
+            let find =  state.todos.find(value => value.id === action.payload.id)
+            console.log(`Find: ${JSON.stringify(find)}`)
+            find.title = action.payload.title
+            find.description = action.payload.description
+            return {...state}
         }
 
         default:
